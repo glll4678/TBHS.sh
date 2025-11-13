@@ -1,24 +1,29 @@
 # TBHS.sh
-佇上新版 macOS 安裝教育部「臺灣閩南語漢字輸入法」的 Shell Ccript。
+佇 macOS Sequoia 15.1+ 安裝**教育部臺灣閩南語漢字輸入法**的 Shell Ccript。
 
-## 步驟
+## 專案緣由
+
+自 macOS 15.1 開始，因為安全性問題，教育部臺灣閩南語漢字輸入法的安裝程式無法度紡。毋過，其實主程式是會當紡的！所以，直接共安裝程式內面的主程式掠出來，共囥入去應該囥的所在，就挖溪矣！
+
+## 安裝步驟
 
 1. 執行「Terminal（終端機）」或者是「iTerm」
 2. 將下面的命令貼入去，揤 enter：
 
 ```zsh
 #!/bin/zsh
+cd ~
 curl -L -o TBHS-Mac-2.4.zip https://language.moe.gov.tw/sujip/TBHS-Mac-2.4.zip && \
 unzip TBHS-Mac-2.4.zip && \
 rm TBHS-Mac-2.4.zip && \
 hdiutil attach TBHS-Mac-2.4.dmg && \
-cp /Volumes/TBHS.localized/TBHS-2.4.pkg/Contents/Resources/TBHS-2.4.pax.gz ~/Downloads/ && \
+cp /Volumes/TBHS.localized/TBHS-2.4.pkg/Contents/Resources/TBHS-2.4.pax.gz ~/ && \
 hdiutil detach /Volumes/TBHS.localized && \
 rm TBHS-Mac-2.4.dmg && \
-gunzip ~/Downloads/TBHS-2.4.pax.gz && \
-pax -rf ~/Downloads/TBHS-2.4.pax && \
-rm -f ~/Downloads/TBHS-2.4.pax && \
-sudo mv ~/Downloads/TBHS.app /Library/Input\ Methods/ && \
+gunzip TBHS-2.4.pax.gz && \
+pax -rf TBHS-2.4.pax && \
+rm -f TBHS-2.4.pax && \
+sudo mv TBHS.app /Library/Input\ Methods/ && \
 open /Library/Input\ Methods/TBHS.app
 ```
 
@@ -30,5 +35,13 @@ open /Library/Input\ Methods/TBHS.app
 8. 到「系統設定」的「鍵盤」點「輸入方式」邊仔的「編輯⋯」
 9. 點「＋」，將「繁體中文」內面的「漢字模式」佮「臺羅模式」加入
 
-- 補充1：過程當中，會出現輸入密碼、Touch ID 認證的所在，照指示操作。
-- 補充2：若過程當中，系統提示「需要 Rosetta」，就照指示安裝。（無一定會出現）
+過程當中，可能會出現需要輸入密碼、驗證 Touch ID、提示「需要 Rosetta」，照指示操作就會使。
+
+## 已知問題
+**macOS Tahoe 26 干焦會當用「臺羅模式」**
+- 無加入「漢字模式」：會當用「臺羅模式」
+- 加入「漢字模式」：規个輸入法無法度紡
+
+## 使用建議
+
+「漢字模式」建議配合「[豆腐台語詞庫](https://tauhu.tw/su-jip-huat/)」使用！
